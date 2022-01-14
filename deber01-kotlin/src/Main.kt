@@ -1,7 +1,6 @@
 import java.io.*
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.math.cos
 
 fun main(){
     val scanner = Scanner(System.`in`)
@@ -19,7 +18,7 @@ fun main(){
         var opcionMenu = scanner.nextLine().toInt()
         when(opcionMenu){
             1 -> {
-                Arquitecto.mostrarArquitecto(Arquitecto.listadoArquitectos)
+                Arquitecto.mostrarArquitectos(Arquitecto.listadoArquitectos)
                 do{
                     print("Seleccione e ingrese el número de la acción a realizar\n"+
                     "1: Ingresar arquitecto nuevo\n"+
@@ -72,13 +71,17 @@ fun main(){
                                     1 -> {
                                         print("Ingrese el número de cedula:")
                                         var numCedula = scanner.nextLine().toInt()
-                                        Arquitecto.mostrarArquitecto(Arquitecto.getCedula(numCedula))
+                                        Arquitecto.mostrarArquitectos(Arquitecto.getCedula(numCedula))
+                                        Proyecto.mostrarProyectos(Proyecto.getIDArquitecto(numCedula))
                                         break
                                     }
                                     2 -> {
                                         print("Ingrese el nombre:")
                                         var nombreArqui = scanner.nextLine()
-                                        Arquitecto.mostrarArquitecto(Arquitecto.getNombre(nombreArqui))
+                                        var objeto = Arquitecto.getNombre(nombreArqui)
+                                        Arquitecto.mostrarArquitectos(Arquitecto.getNombre(nombreArqui))
+                                        var cedula = objeto.elementAt(0)
+                                        Proyecto.mostrarProyectos(Proyecto.getIDArquitecto(cedula.cedula))
                                         break
                                     }
                                     0 -> {
@@ -169,7 +172,7 @@ fun main(){
                 }while (opcionMenu != 0)
             }
             2 -> {
-                Proyecto.mostrarProyecto(Proyecto.listadoProyectos)
+                Proyecto.mostrarProyectos(Proyecto.listadoProyectos)
                 do{
                     print("Seleccione e ingrese el numero de la acción a realizar:\n"+
                             "1. Ingresar proyecto nuevo\n"+
@@ -207,8 +210,9 @@ fun main(){
                             }while (opcionRentabilidad != 1 && opcionRentabilidad != 2)
                             var idProy: Int
                             do {
-                                println("Seleccione la cedula del arquitecto encargado del proyecto")
+                                println("Ingresa la cedula del arquitecto encargado del proyecto")
                                 Arquitecto.listadoArquitectos.forEach { println("${it.nombre}: " + "${it.cedula}") }
+                                println("Ingreso:")
                                 idProy = scanner.nextLine().toInt()
                                 var flag = false
                                 Arquitecto.listadoArquitectos.forEach {
@@ -234,13 +238,13 @@ fun main(){
                                     1 -> {
                                         print("Ingrese el numero del proyecto:")
                                         var id = scanner.nextLine().toInt()
-                                        Proyecto.mostrarProyecto(Proyecto.getNumProyecto(id))
+                                        Proyecto.mostrarProyectos(Proyecto.getNumProyecto(id))
                                         break
                                     }
                                     2 -> {
                                         print("Ingrese el nombre del proyecto:")
                                         var nombreProy = scanner.nextLine()
-                                        Proyecto.mostrarProyecto(Proyecto.getNombre(nombreProy))
+                                        Proyecto.mostrarProyectos(Proyecto.getNombre(nombreProy))
                                         break
                                     }
                                     0 -> {
@@ -366,7 +370,7 @@ class Arquitecto(
         fun agregarArquitecto(nuevoArquitecto: Arquitecto){
             listadoArquitectos.add(nuevoArquitecto)
             actualizarRegistroArquitecto()
-            mostrarArquitecto(listadoArquitectos)
+            mostrarArquitectos(listadoArquitectos)
         }
 
         //Getters
@@ -390,29 +394,30 @@ class Arquitecto(
             return listadoArquitectos.filter { it.cedula == cedula } as ArrayList<Arquitecto>
         }
 
+
         //Setters
         fun setNombre(nombre: String, cedula: Int){
             listadoArquitectos.filter { it.cedula == cedula }.map { it.nombre = nombre }
             actualizarRegistroArquitecto()
-            mostrarArquitecto(listadoArquitectos)
+            mostrarArquitectos(listadoArquitectos)
         }
 
         fun setSalario(salario: Double, cedula: Int){
             listadoArquitectos.filter { it.cedula == cedula }.map { it.salario = salario }
             actualizarRegistroArquitecto()
-            mostrarArquitecto(listadoArquitectos)
+            mostrarArquitectos(listadoArquitectos)
         }
 
         fun setAfiliado(afiliado: Boolean, cedula: Int){
             listadoArquitectos.filter { it.cedula == cedula }.map { it.afiliado = afiliado }
             actualizarRegistroArquitecto()
-            mostrarArquitecto(listadoArquitectos)
+            mostrarArquitectos(listadoArquitectos)
         }
 
         fun setFechaNacimiento(fechaNacimiento: Date, cedula: Int){
             listadoArquitectos.filter { it.cedula == cedula }.map { it.fechaNacimiento = fechaNacimiento }
             actualizarRegistroArquitecto()
-            mostrarArquitecto(listadoArquitectos)
+            mostrarArquitectos(listadoArquitectos)
         }
 
         //Delete
@@ -420,10 +425,10 @@ class Arquitecto(
         fun eliminarArquitecto(cedula: Int){
             listadoArquitectos = listadoArquitectos.filter { it.cedula != cedula } as ArrayList<Arquitecto>
             actualizarRegistroArquitecto()
-            mostrarArquitecto(listadoArquitectos)
+            mostrarArquitectos(listadoArquitectos)
         }
 
-        fun mostrarArquitecto(arregloArquitecto: ArrayList<Arquitecto>){
+        fun mostrarArquitectos(arregloArquitecto: ArrayList<Arquitecto>){
             println("Cedula, Nombre, Salario, Afiliado, Fecha de Nacimiento")
             arregloArquitecto.forEach{arquitectActual: Arquitecto ->
             println(
@@ -508,7 +513,7 @@ class Proyecto(
         fun agregarProyecto(nuevoProyecto: Proyecto){
             listadoProyectos.add(nuevoProyecto)
             actualizarArchivoProyecto()
-            mostrarProyecto(listadoProyectos)
+            mostrarProyectos(listadoProyectos)
         }
 
         //Getters
@@ -532,45 +537,49 @@ class Proyecto(
             return listadoProyectos.filter { it.rentable == rentable } as ArrayList<Proyecto>
         }
 
+        fun getIDArquitecto(idArquitecto: Int):ArrayList<Proyecto>{
+            return listadoProyectos.filter { it.idArquitecto == idArquitecto } as ArrayList<Proyecto>
+        }
+
         //Setters
         fun setNombre(nombre: String, numProyecto: Int){
             listadoProyectos.filter { it.numProyecto == numProyecto }.map { it.nombre = nombre }
             actualizarArchivoProyecto()
-            mostrarProyecto(listadoProyectos)
+            mostrarProyectos(listadoProyectos)
         }
 
         fun setCosto(costo: Double, numProyecto: Int){
             listadoProyectos.filter { it.numProyecto == numProyecto }.map { it.costo = costo }
             actualizarArchivoProyecto()
-            mostrarProyecto(listadoProyectos)
+            mostrarProyectos(listadoProyectos)
         }
 
         fun setFechaEntrega(fechaEntrega: Date, numProyecto: Int){
             listadoProyectos.filter { it.numProyecto == numProyecto }.map { it.fechaEntrega = fechaEntrega }
             actualizarArchivoProyecto()
-            mostrarProyecto(listadoProyectos)
+            mostrarProyectos(listadoProyectos)
         }
 
         fun setRentable(rentable: Boolean, numProyecto: Int){
             listadoProyectos.filter { it.numProyecto == numProyecto }.map { it.rentable = rentable }
             actualizarArchivoProyecto()
-            mostrarProyecto(listadoProyectos)
+            mostrarProyectos(listadoProyectos)
         }
 
         fun setCedulaArquitecto(cedula: Int, numProyecto: Int){
             listadoProyectos.filter { it.numProyecto == numProyecto }.map { it.idArquitecto = cedula }
             actualizarArchivoProyecto()
-            mostrarProyecto(listadoProyectos)
+            mostrarProyectos(listadoProyectos)
         }
 
         //Delete
         fun eliminarProyecto(numProyecto: Int){
             listadoProyectos = listadoProyectos.filter { it.numProyecto != numProyecto } as ArrayList<Proyecto>
             actualizarArchivoProyecto()
-            mostrarProyecto(listadoProyectos)
+            mostrarProyectos(listadoProyectos)
         }
 
-        fun mostrarProyecto(arregloProyectos: ArrayList<Proyecto>){
+        fun mostrarProyectos(arregloProyectos: ArrayList<Proyecto>){
             println("Numero de proyecto, Nombre, Costo, Fecha de entrega, Rentable, Cedula arquitecto")
             arregloProyectos.forEach{ proyectoActual: Proyecto ->
             println(
