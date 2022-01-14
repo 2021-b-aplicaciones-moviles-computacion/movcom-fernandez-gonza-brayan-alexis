@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">examen-IB</string>
+    <string name="arquitecto">Arquitectos</string>
+    <string name="titulo_listado_arquitectos">Proyectos de</string>
+</resources>
