@@ -11,6 +11,7 @@ class AgregarArquitecto : AppCompatActivity() {
     var lastID = 0
     var nombre = ""
     var salario = ""
+    var cedula = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_agregar_arquitecto)
@@ -26,7 +27,7 @@ class AgregarArquitecto : AppCompatActivity() {
             }
         }
 
-        nextID = lastID + 1
+        //nextID = lastID + 1
 
         var txt_input_nombreA = findViewById<TextInputEditText>(R.id.text_input_nombreArquitecto)
         var txt_input_cedulaA = findViewById<TextInputEditText>(R.id.txt_input_cedulaArquitecto)
@@ -34,9 +35,10 @@ class AgregarArquitecto : AppCompatActivity() {
         var btn_agregar_Arqui = findViewById<Button>(R.id.btn_guardar_arquitecto)
         btn_agregar_Arqui.setOnClickListener {
             nombre = txt_input_nombreA.text.toString()
+            cedula = Integer.parseInt(txt_input_cedulaA.text.toString())
             salario = txt_input_edadA.text.toString()
             BBaseDatosMemoria.arregloArquitectos.add(
-                BArquitecto(nextID, nombre, salario)
+                BArquitecto(cedula, nombre, salario,"true")
             )
             val intentAddSucces = Intent(this, MainActivity::class.java)
             startActivity(intentAddSucces)
