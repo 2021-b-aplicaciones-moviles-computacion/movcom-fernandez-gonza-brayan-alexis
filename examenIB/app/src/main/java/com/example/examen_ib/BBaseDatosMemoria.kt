@@ -9,19 +9,19 @@ class BBaseDatosMemoria {
         init {
             //Arquitectos
             arregloArquitectos.add(
-                BArquitecto(1713990602,"Miguel Cardenas","100.0","true")
+                BArquitecto(1713990602,"Miguel Cardenas","100.0")
             )
             arregloArquitectos.add(
-                BArquitecto(1729482119,"Diana Gales","2500.0","true")
+                BArquitecto(1729482119,"Diana Gales","2500.0")
             )
             arregloArquitectos.add(
-                BArquitecto(1711299584,"Samantha Galarza","1850.0","false")
+                BArquitecto(1711299584,"Samantha Galarza","1850.0")
             )
             arregloArquitectos.add(
-                BArquitecto(1799433221,"Esteban Guerrero","1000.0","false")
+                BArquitecto(1799433221,"Esteban Guerrero","1000.0")
             )
             arregloArquitectos.add(
-                BArquitecto(1872237463,"Julian Venegas","1399.0","true")
+                BArquitecto(1872237463,"Julian Venegas","1399.0")
             )
 
             //Proyectos

@@ -17,12 +17,11 @@ class EditarArquitecto : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
-        var afiliacion = "true"
         val posicionArquitecto = intent.getIntExtra("posicionEditar",1)
 
         val txtNombreAEditar = findViewById<TextInputEditText>(R.id.txt_input_newNombreArquitecto)
         val txtSalarioAEditar = findViewById<TextInputEditText>(R.id.txt_input_newEdadArquitecto)
-        val swEditarAfiliacion = findViewById<Switch>(R.id.swEstadoAfiliacion)
+
 
         BBaseDatosMemoria.arregloArquitectos.forEachIndexed { index: Int, arquitecto: BArquitecto ->
             if(index == posicionArquitecto){
@@ -38,8 +37,6 @@ class EditarArquitecto : AppCompatActivity() {
                 if(index == posicionArquitecto){
                     arquitecto.nombreArquitecto = (txtNombreAEditar.text.toString())
                     arquitecto.salario = txtSalarioAEditar.text.toString()
-
-                    arquitecto.afiliacion = afiliacion
                 }
             }
             val intentEditSuccess = Intent(this, MainActivity::class.java)

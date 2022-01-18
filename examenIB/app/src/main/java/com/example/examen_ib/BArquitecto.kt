@@ -7,11 +7,9 @@ class BArquitecto(
     val cedulaArquitecto: Int,
     var nombreArquitecto: String?,
     var salario: String?,
-    var afiliacion: String?
     ) : Parcelable{
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
-        parcel.readString(),
         parcel.readString(),
         parcel.readString()
     ) {
@@ -25,7 +23,6 @@ class BArquitecto(
         parcel.writeInt(cedulaArquitecto)
         parcel.writeString(nombreArquitecto)
         parcel.writeString(salario)
-        parcel.writeString(afiliacion)
     }
 
     override fun describeContents(): Int {
