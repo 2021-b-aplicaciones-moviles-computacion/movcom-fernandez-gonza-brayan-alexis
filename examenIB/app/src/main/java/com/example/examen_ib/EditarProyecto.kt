@@ -16,8 +16,11 @@ class EditarProyecto : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        val idProyecto = intent.getIntExtra("idProyecto",1)
-        index_Arquitecto = intent.getIntExtra("posicionArquitecto",1)
+
+
+        val idProyecto = intent.getIntExtra("numProyecto",1)
+        index_Arquitecto = intent.getIntExtra("posicionArquitectoEditar",1)
+
         val txt_nombreEditarProyecto = findViewById<TextInputEditText>(R.id.txt_input_newNombreProyecto)
         val txt_costoEditarProyecto = findViewById<TextInputEditText>(R.id.txt_input_newCostoProyecto)
 
@@ -42,7 +45,7 @@ class EditarProyecto : AppCompatActivity() {
     }
     fun devolverRespuesta(){
         val intentDevolverParametros = Intent()
-        intentDevolverParametros.putExtra("indexArquitectoEditar", index_Arquitecto)
+        intentDevolverParametros.putExtra("posicionArquitectoEditar", index_Arquitecto)
         setResult(
             RESULT_OK,
             intentDevolverParametros

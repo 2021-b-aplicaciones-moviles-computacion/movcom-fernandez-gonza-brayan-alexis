@@ -77,10 +77,29 @@
         android:id="@+id/btn_guardar_editar_arquitecto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="208dp"
         android:text="Guardar"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout7"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout7"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout7" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="116dp"
+        android:text="Afiliado"
+        app:layout_constraintBottom_toTopOf="@+id/btn_guardar_editar_arquitecto"
+        app:layout_constraintEnd_toEndOf="@+id/btn_guardar_editar_arquitecto"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/btn_guardar_editar_arquitecto" />
+
+    <Switch
+        android:id="@+id/sw_editarAfiliacion"
+        android:layout_width="54dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView17"
+        app:layout_constraintStart_toEndOf="@+id/textView17"
+        app:layout_constraintTop_toTopOf="@+id/textView17" />
 </androidx.constraintlayout.widget.ConstraintLayout>

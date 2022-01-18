@@ -8,10 +8,7 @@ import android.util.Log
 import android.view.ContextMenu
 import android.view.MenuItem
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.ListView
+import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 
 class Listado_Proyecto : AppCompatActivity() {
@@ -53,14 +50,12 @@ class Listado_Proyecto : AppCompatActivity() {
         lista_proyecto = arrayListOf()
         posicionArquitecto = intent.getIntExtra("posicionEditar",1)
         var idProyecto = arrayListOf<Int>()
-        val lv_agregar_proyecto = findViewById<ListView>(R.id.lv_list_view_lista_proyectos)
+        val tvNombreArquitecto = findViewById<TextView>(R.id.tv_nombre_arquitecto)
 
         BBaseDatosMemoria.arregloArquitectos.forEachIndexed { index: Int, arquitecto: BArquitecto ->
-            Log.i("testExamen","${arquitecto.cedulaArquitecto} -> {${arquitecto.nombreArquitecto}")
             if (index == posicionArquitecto){
                 idArquitectoACargo = arquitecto.cedulaArquitecto
-                var label = "Arquitecto: ${arquitecto.nombreArquitecto}"
-                //lv_agregar_proyecto.setText(label)
+                tvNombreArquitecto.setText("${arquitecto.nombreArquitecto}")
             }
         }
 
