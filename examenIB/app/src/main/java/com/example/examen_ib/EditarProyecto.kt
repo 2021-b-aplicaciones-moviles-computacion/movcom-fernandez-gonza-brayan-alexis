@@ -24,7 +24,6 @@ class EditarProyecto : AppCompatActivity() {
         val txt_nombreEditarProyecto = findViewById<TextInputEditText>(R.id.txt_input_newNombreProyecto)
         val txt_costoEditarProyecto = findViewById<TextInputEditText>(R.id.txt_input_newCostoProyecto)
 
-        //val objArquitecto = BBaseDatosMemoria.arregloArquitecto_Proyecto.filter { it.numProyecto == objProyecto.numProyecto }
         BBaseDatosMemoria.arregloProyectos.forEachIndexed { index: Int, proyecto: BProyecto ->
             if(idProyecto == proyecto.numProyecto){
                 txt_nombreEditarProyecto.setText(proyecto.nombreProyecto)
