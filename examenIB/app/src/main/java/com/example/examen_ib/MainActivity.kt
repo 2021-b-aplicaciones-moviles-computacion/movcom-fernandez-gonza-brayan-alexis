@@ -1,5 +1,6 @@
 package com.example.examen_ib
 
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,6 +12,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
+import androidx.appcompat.app.AlertDialog
 
 class MainActivity : AppCompatActivity() {
     var idItemSeleccionado = 0
@@ -67,8 +69,15 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
             R.id.mi_eliminar -> {
-                Log.i("context-menu","Delete position: ${idItemSeleccionado}")
-                eliminarArquitecto(idItemSeleccionado)
+                AlertDialog.Builder(this).apply {
+                    setTitle("Eliminar")
+                    setMessage("¿Esta seguro de eliminar al arquitecto? Se eliminarán también los proyectos asociados al mismo")
+                    setPositiveButton("Si",
+                    DialogInterface.OnClickListener { dialog, which ->
+                        eliminarArquitecto(idItemSeleccionado)
+                    })
+                    setNegativeButton("Cancelar",null)
+                }.show()
                 return true
             }
             R.id.mi_ver_proyectos -> {

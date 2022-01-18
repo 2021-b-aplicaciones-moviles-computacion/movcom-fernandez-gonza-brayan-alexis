@@ -1,6 +1,8 @@
 package com.example.examen_ib
 
 import android.app.Activity
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -119,7 +121,17 @@ class Listado_Proyecto : AppCompatActivity() {
                 return true
             }
             R.id.mi_eliminar_proyecto -> {
-                eliminarProyecto(idItemSeleccionado)
+                AlertDialog.Builder(this).apply {
+                    setTitle("Eliminar")
+                    setMessage("¿Esta seguro de eliminar el proyecto?")
+                    setPositiveButton("Si",
+                    DialogInterface.OnClickListener { dialog, which ->
+                        eliminarProyecto(idItemSeleccionado)
+
+                    })
+
+                    setNegativeButton("Cancelar", null)
+                }.show()
                 return true
             }
             else -> super.onContextItemSelected(item)
